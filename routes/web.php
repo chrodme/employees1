@@ -51,3 +51,8 @@ Route::get('avatars/{name}', 'EmployeeManagementController@load');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::resource('copPlazas-management', 'CopPlazasController');
 Route::post('copPlazas-management/search', 'CopPlazasController@search')->name('copPlazas-management.search');
+
+Route::resource('copCap-management', 'CopCapController');
+Route::post('copCap-management/search', 'CopCapController@search')->name('copCap-management.search');
+Route::post('copCap-management/details', 'CopCapController@details')->name('copCap-management.details');
+
