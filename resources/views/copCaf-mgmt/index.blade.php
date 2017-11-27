@@ -1,4 +1,4 @@
-@extends('copCap-mgmt.base')
+@extends('copCaf-mgmt.base')
 @section('action-content')
     <!-- Main content -->
     <section class="content">
@@ -6,10 +6,10 @@
   <div class="box-header">
     <div class="row">
         <div class="col-sm-8">
-          <h3 class="box-title">Cuadro de Asignacion de Personal</h3>
+          <h3 class="box-title">Cuadro Fisico de Personal</h3>
         </div>
         <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('copCap-management.create') }}">Agregar Nuevo Registro CAP</a>
+          <a class="btn btn-primary" href="{{ route('copCaf-management.create') }}">Agregar Nuevo Registro CAF</a>
         </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
         <div class="col-sm-6"></div>
         <div class="col-sm-6"></div>
       </div>
-      <form method="POST" action="{{ route('copCap-management.search') }}">
+      <form method="POST" action="{{ route('copCaf-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Busqueda'])
          @component('layouts.two-cols-search-row', ['items' => ['Sede', 'Dependencia'],
@@ -49,23 +49,23 @@
                           </thead>
                           <tbody>
 
-                          @foreach ($copCaps as $copCap)
+                          @foreach ($copCafs as $copCaf)
                               <tr role="row" class="odd">
-                                  <td class="sorting_1">{{ $copCap->id }} </td>
-                                  <td class="hidden-xs">{{ $copCap->sede }}</td>
-                                  <td class="hidden-xs">{{ $copCap->dependencia }}</td>
-                                  <td class="hidden-xs">{{ $copCap->rotulo }}</td>
-                                  <td class="hidden-xs">{{ $copCap->id }}</td>
-                                  <td class="hidden-xs">{{ $copCap->apellidos }}</td>
-                                  <td class="hidden-xs">{{ $copCap->nombres }}</td>
+                                  <td class="sorting_1">{{ $copCaf->id }} </td>
+                                  <td class="hidden-xs">{{ $copCaf->sede }}</td>
+                                  <td class="hidden-xs">{{ $copCaf->dependencia }}</td>
+                                  <td class="hidden-xs">{{ $copCaf->rotulo }}</td>
+                                  <td class="hidden-xs">{{ consultaPlaza($copCaf->id) }}</td>
+                                  <td class="hidden-xs">{{ $copCaf->apellidos }}</td>
+                                  <td class="hidden-xs">{{ $copCaf->nombres }}</td>
                                   <td>
-                                      <form class="row" method="POST" action="{{ route('copCap-management.destroy', ['id' => $copCap->id]) }}" onsubmit = "return confirm('Seguro?')">
+                                      <form class="row" method="POST" action="{{ route('copCaf-management.destroy', ['id' => $copCaf->id]) }}" onsubmit = "return confirm('Seguro?')">
                                           <input type="hidden" name="_method" value="DELETE">
                                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                          <a href="{{ route('copCap-management.show', ['id' => $copCap->id]) }}" class="btn btn-info col-sm-3 col-xs-5 btn-margin">
+                                          <a href="{{ route('copCaf-management.show', ['id' => $copCaf->id]) }}" class="btn btn-info col-sm-3 col-xs-5 btn-margin">
                                               Detalles
                                           </a>
-                                          <a href="{{ route('copCap-management.edit', ['id' => $copCap->id]) }}" class="btn btn-warning col-sm-3 col-xs-5 btn-margin">
+                                          <a href="{{ route('copCaf-management.edit', ['id' => $copCaf->id]) }}" class="btn btn-warning col-sm-3 col-xs-5 btn-margin">
                                               Modificar
                                           </a>
                                           <button type="submit" class="btn btn-danger col-sm-3 col-xs-5 btn-margin">
@@ -94,11 +94,11 @@
       </div>
       <div class="row">
         <div class="col-sm-5">
-          <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Mostrando 1 -  {{count($copCaps)}} de {{count($copCaps)}} registros</div>
+          <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Mostrando 1 -  {{count($copCafs)}} de {{count($copCafs)}} registros</div>
         </div>
         <div class="col-sm-7">
           <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-            {{ $copCaps->links() }}
+            {{ $copCafs->links() }}
           </div>
         </div>
       </div>

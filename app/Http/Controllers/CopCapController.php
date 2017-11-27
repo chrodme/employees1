@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\copPlazas;
 use Illuminate\Support\Facades\DB;
+//use App\copCap;
+//use App\copCaf;
+use App\copRotulos;
+use App\copSedes;
+use App\copDependencias;
 
 class CopCapController extends Controller
 {
@@ -19,6 +25,7 @@ class CopCapController extends Controller
             ->leftJoin('cop_trabajadores', 'cop_cap.id_trabajador', '=', 'cop_trabajadores.id')
             ->leftJoin('cop_plazas', 'cop_cap.id_plazaCap', '=', 'cop_plazas.id')
             ->select('cop_plazas.sede', 'cop_plazas.dependencia' , 'cop_plazas.rotulo', 'cop_trabajadores.id', 'cop_trabajadores.apellidos', 'cop_trabajadores.nombres')
+            ->where('cop_plazas.tipo','=','CAP')
             ->paginate(30);
 
         return view('copCap-mgmt/index', ['copCaps' => $copCaps]);
@@ -53,7 +60,34 @@ class CopCapController extends Controller
      */
     public function show($id)
     {
-        //
+        $copCap = DB::table('cop_cap')
+            ->leftJoin('cop_trabajadores', 'cop_cap.id_trabajador', '=', 'cop_trabajadores.id')
+            ->leftJoin('cop_plazas', 'cop_cap.id_plazaCap', '=', 'cop_plazas.id')
+            ->select('cop_plazas.sede', 'cop_plazas.dependencia' , 'cop_plazas.rotulo', 'cop_trabajadores.id', 'cop_trabajadores.apellidos', 'cop_trabajadores.nombres')
+            ->where('cop_trabajadores.id','=',$id)
+            ->get();
+
+        /*
+        $copPlaza = copPlazas::find($id);
+        // Redirect to state list if updating state wasn't existed
+        if ($copPlaza == null || count($copPlaza) == 0)
+        {   return redirect()->intended('/copCap-management');
+        }
+        /*
+        $cities = City::all();
+        $states = State::all();
+        $countries = Country::all();
+        $departments = Department::all();
+        $divisions = Division::all();
+        */
+/*
+        $sede = copSedes::all();
+        $dependencia = copDependencias::all();
+        $rotulo = copRotulos::all();
+*/
+        //return view('copCap-mgmt/show', ['copPlaza' => $copPlaza, 'sedes' => $sede, 'dependencias' => $dependencia, 'rotulos' => $rotulo]);
+        return view('copCap-mgmt/show', ['copCaps' => $copCap]);
+
     }
 
     /**
@@ -131,21 +165,6 @@ class CopCapController extends Controller
     }
     public function details($id)
     {
-        $copPlaza = copPlazas::find($id);
-        // Redirect to state list if updating state wasn't existed
-        if ($copPlaza == null || count($copPlaza) == 0)
-        {   return redirect()->intended('/copPlazas-management');
-        }
-        /*$cities = City::all();
-        $states = State::all();
-        $countries = Country::all();
-        $departments = Department::all();
-        $divisions = Division::all();*/
-        $sede = copSedes::all();
-        $dependencia = copDependencias::all();
-        $rotulo = copRotulos::all();
-
-        return view('copCap-mgmt/details', ['copPlaza' => $copPlaza, 'sedes' => $sede, 'dependencias' => $dependencia, 'rotulos' => $rotulo]);
 
     }
 }

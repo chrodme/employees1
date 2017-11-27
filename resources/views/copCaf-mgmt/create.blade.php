@@ -5,17 +5,28 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Detalles de registro CAP</div>
+                <div class="panel-heading">Agregar nueva Plaza CAP</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('copPlazas-management.update', ['id' => $copPlaza->id]) }}" enctype="multipart/form-data">
-                        <input type="hidden" name="_method" value="PATCH">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('copPlazas-management.store') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
+                            <label for="id" class="col-md-4 control-label">ID</label>
+                            <div class="col-md-6">
+                                <input id="id" type="text" class="form-control" name="id" value="{{ old('id') }}" required>
+
+                                @if ($errors->has('id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Sede</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="sede">
                                     @foreach ($sedes as $sede)
-                                        <option {{$copPlaza->sede == $sede->sede ? 'selected' : ''}} value="{{$sede->sede}}">{{$sede->sede}}</option>
+                                        <option value="{{$sede->sede}}">{{$sede->sede}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -25,7 +36,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="dependencia">
                                     @foreach ($dependencias as $dependencia)
-                                        <option {{$copPlaza->dependencia == $dependencia->dependencia ? 'selected' : ''}} value="{{$dependencia->dependencia}}">{{$dependencia->dependencia}}</option>
+                                        <option value="{{$dependencia->dependencia}}">{{$dependencia->dependencia}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -35,16 +46,15 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="rotulo">
                                     @foreach ($rotulos as $rotulo)
-                                        <option {{$copPlaza->rotulo == $rotulo->rotulo ? 'selected' : ''}} value="{{$rotulo->rotulo}}">{{$rotulo->rotulo}}</option>
+                                        <option value="{{$rotulo->rotulo}}">{{$rotulo->rotulo}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('modalidad') ? ' has-error' : '' }}">
-                            <label for="modalidad" class="col-md-4 control-label">Modalidad</label>
-
+                            <label for="id" class="col-md-4 control-label">Modalidad</label>
                             <div class="col-md-6">
-                                <input id="modalidad" type="text" class="form-control" name="modalidad" value="{{ $copPlaza->modalidad }}" required>
+                                <input id="modalidad" type="text" class="form-control" name="modalidad" value="{{ old('modalidad') }}" required>
 
                                 @if ($errors->has('modalidad'))
                                     <span class="help-block">
@@ -53,10 +63,11 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Actualizar
+                                    Grabar
                                 </button>
                             </div>
                         </div>

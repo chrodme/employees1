@@ -54,5 +54,6 @@ Route::post('copPlazas-management/search', 'CopPlazasController@search')->name('
 
 Route::resource('copCap-management', 'CopCapController');
 Route::post('copCap-management/search', 'CopCapController@search')->name('copCap-management.search');
-Route::post('copCap-management/details', 'CopCapController@details')->name('copCap-management.details');
 
+Route::resource('copCaf-management', 'CopCafController');
+Route::post('copCaf-management/search', 'CopCafController@search')->name('copCaf-management.search');

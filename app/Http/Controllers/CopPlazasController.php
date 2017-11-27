@@ -22,7 +22,9 @@ class CopPlazasController extends Controller
     public function index()
     {
         //
-        $cap_Plazas = copPlazas::paginate(20);
+        $cap_Plazas = copPlazas::where('tipo','=','CAP')
+                        ->paginate(20);
+        //$users = User::where('votes', '>', 100)->paginate(15);
 
         return view('copPlazas-mgmt/index', ['capPlazas' => $cap_Plazas]);
 

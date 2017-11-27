@@ -50,6 +50,8 @@
         <li><a href="{{ url('employee-management') }}"><i class="fa fa-link"></i> <span>Trabajadores</span></a></li>
         <li><a href="{{ route('copPlazas-management.index') }}"><i class="fa fa-link"></i> <span>Plazas CAP</span></a></li>
         <li><a href="{{ route('copCap-management.index') }}"><i class="fa fa-link"></i> <span>CAP</span></a></li>
+        <li><a href="{{ route('copCaf-management.index') }}"><i class="fa fa-link"></i> <span>CAF</span></a></li>
+
         <li><a href="{{ route('user-management.index') }}"><i class="fa fa-link"></i> <span>Administracion de Usuarios</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
